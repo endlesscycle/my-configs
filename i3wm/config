@@ -1,17 +1,13 @@
-bindsym Ctrl+Mod1+Left exec xbacklight -dec 10%
-bindsym Ctrl+Mod1+Right exec xbacklight -inc 10%
+#For i3-gaps-next only!
+bindsym Ctrl+Mod1+Left exec --no-startup-id xbacklight -dec 10%
+bindsym Ctrl+Mod1+Right exec --no-startup-id xbacklight -inc 10%
 
-exec NetworkManager
 set $mod Mod4
 
-exec xcompmgr
+exec --no-startup-id xcompmgr
 
 #Delete border
 new_window pixel 0
-
-#Languages
-bindsym Alt+Shift+2 exec --no-startup-id setxkbmap ru
-bindsym Alt+Shift+1 exec --no-startup-id setxkbmap us -variant colemak
 
 # i3 config file (v4)
 #
@@ -53,7 +49,7 @@ set $right semicolon
 floating_modifier Mod4
 
 # start a terminal
-bindsym Mod4+Return exec konsole
+bindsym Mod4+Return exec --no-startup-id konsole
 
 # kill focused window
 bindsym Mod4+Shift+q kill
@@ -66,13 +62,16 @@ bindsym Mod4+d exec dmenu_run
 # bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
 
 bindsym Mod4+Ctrl+E exec emacs
-bindsym Mod4+Ctrl+F exec firefox 
+bindsym Mod4+Ctrl+F exec firefox
+bindsym Mod4+Ctrl+M exec Telegram
 
 bindsym Mod1+Ctrl+Up exec amixer set Master -q 1%+
 bindsym Mod1+Ctrl+Down exec amixer set Master -q 1%-
 
 bindsym Mod1+Ctrl+Shift+Up exec amixer set Master -q 5%+
 bindsym Mod1+Ctrl+Shift+Down exec amixer set Master -q 5%-
+
+bindsym Mod1+Ctrl+M exec amixer set Master 0%
 
 # change focus
 bindsym Mod4+$left focus left
@@ -136,8 +135,8 @@ bindsym Mod4+1 workspace 
 bindsym Mod4+2 workspace 
 bindsym Mod4+3 workspace 
 bindsym Mod4+4 workspace 
-bindsym Mod4+5 workspace 
-bindsym Mod4+6 workspace 6
+bindsym Mod4+5 workspace 
+bindsym Mod4+6 workspace 
 bindsym Mod4+7 workspace 7
 bindsym Mod4+8 workspace 8
 bindsym Mod4+9 workspace 9
@@ -180,6 +179,11 @@ mode "resize" {
         bindsym Down        resize grow height 5 px or 5 ppt
         bindsym Up          resize shrink height 5 px or 5 ppt
         bindsym Right       resize grow width 5 px or 5 ppt
+	
+        bindsym Left+Shift        resize shrink width 10 px or 10 ppt
+        bindsym Down+Shift        resize grow height 10 px or 10 ppt
+        bindsym Up+Shift          resize shrink height 10 px or 10 ppt
+        bindsym Right+Shift       resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -194,27 +198,29 @@ bindsym Mod4+r mode "resize"
 # finds out, if available)
 
 bar {
-        font pango:Droid Sans Mono, FontAwesome 8
+	i3bar_command i3bar -t
+	font pango:Roboto Mono 6, FontAwesome 8
         status_command i3status
-        separator_symbol ""
+	separator_symbol ""
+	height 25
 
-        colors{
-                separator #268bd2
-                background #000912
-                statusline #AEE3EB
+	colors{
+		separator #268bd2
+        	background #000911B0
+	        statusline #AEE3EB 
+		
+		focused_workspace #001528B0 #001528B0 #BBEAFE
+	        inactive_workspace #000912B0 #000912B0 #BBEAFE
+		active_workspace #001528B0 #001528B0 #BBEAFE
+     		urgent_workspace #001528B0 #000912B0 #BBEAFE
 
-                focused_workspace #001528 #001528 #BBEAFE
-                inactive_workspace #000912 #000912 #BBEAFE
-                active_workspace #001528 #001528 #BBEAFE
-                urgent_workspace #001528 #000912 #BBEAFE
-
-        }
-        position top
+	}
+	position top
 }
 
 set $black       #282828
- set $darkblack   #1d2021
- set $transparent #00000000
+set $darkblack   #1d2021
+set $transparent #00000000
 
 
 #bar {
@@ -255,17 +261,17 @@ gaps outer 4
 # Please remove the following exec line:
 #######################################################################
 
-exec i3-config-wizard
+exec --no-startup-id i3-config-wizard
 
 #Language
 exec --no-startup-id "setxkbmap -model pc105 -layout us,ru -option grp:alt_space_toggle"
 
 
 #Wallpaper
-exec nitrogen --restore &
+exec --no-startup-id nitrogen --restore &
 
 #screenshot
-bindsym Print exec gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a
-bindsym Ctrl+Print exec gnome-screenshot -c
-bindsym Ctrl+Shift+Print exec gnome-screenshot -a -c
+bindsym Print exec --no-startup-id gnome-screenshot
+bindsym Shift+Print exec --no-startup-id gnome-screenshot -a
+bindsym Ctrl+Print exec --no-startup-id gnome-screenshot -c
+bindsym Ctrl+Shift+Print --no-startup-id exec gnome-screenshot -a -c
